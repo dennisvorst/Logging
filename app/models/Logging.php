@@ -1,4 +1,6 @@
 <?php
+namespace App\Models;
+
 class Logging{
     var $_filename;
     var $_dir;

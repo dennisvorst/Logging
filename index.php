@@ -2,7 +2,8 @@
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', 'On');  //On or Off
 
-require_once "class/Logging.php";
+require __DIR__.'/vendor/autoload.php'; 
+use App\Models\Logging;
 
 ?>
 <!DOCTYPE html>
@@ -34,6 +35,9 @@ require_once "class/Logging.php";
 </head>
 <body>
 
+<h1>Logging</h1>
+<p>This page is just a simple HTML page that contains some of the inner workings of the Logging.php class.<p>
+<h2>Executing...</h2>
 <?php
 $logs = new Logging();
 ?>
@@ -49,6 +53,21 @@ $logs->Warning("Started");
 <?php
 $logs->Debug("Started");
 ?>
-
+<p>Done.</p>
+<h2>Validating output</h2>
+<?php 
+$filename = "./app/logs/logfile.log";
+if (file_exists($filename)) 
+{
+    echo "<p>Logfile exists.</p>";
+    echo "<h2>Showing contents:</h2>";
+    $text = file_get_contents($filename) or die("could not retrieve filecontents.");
+    $text = str_replace("\n", "<br>", $text);
+    echo $text . "<br>";
+    echo "<p>Looks great.</p>";
+} else {
+    echo "<p>Something went wrong.</p>";
+}
+?>
 </body>
 </html>
